@@ -450,6 +450,8 @@ dtedit <- function(input, output, name, thedata,
 
 	output[[name]] <- shiny::renderUI({
 		shiny::div(
+			if(show.close) { shiny::actionButton(paste0(name, '_close'), label.close, icon=icon("window-close")) },
+			if(show.downloadExcel) { shiny::actionButton(paste0(name, '_downloadExcel'), label.downloadExcel, icon=icon("file-excel-o")) },
 			if(show.insert) { shiny::actionButton(paste0(name, '_add'), label.add) },
 			if(show.update) { shiny::actionButton(paste0(name, '_edit'), label.edit) },
 			if(show.delete) { shiny::actionButton(paste0(name, '_remove'), label.delete) },
