@@ -103,13 +103,19 @@ dtedit <- function(input, output, name, thedata,
 				   label.edit = 'Edit',
 				   label.add = 'New',
 				   label.copy = 'Copy',
+				   label.download = 'Download',
+				   label.close = 'Close',
 				   show.delete = TRUE,
 				   show.update = TRUE,
 				   show.insert = TRUE,
 				   show.copy = TRUE,
+				   show.close = TRUE,
+				   show.download = TRUE,
 				   callback.delete = function(data, row) { },
 				   callback.update = function(data, olddata, row) { },
 				   callback.insert = function(data, row) { },
+				   callback.download = function(data, row) { },
+				   callback.close = function() { },
 				   click.time.threshold = 2, # in seconds
 				   datatable.options = list(pageLength=defaultPageLength)
 ) {
@@ -319,6 +325,20 @@ dtedit <- function(input, output, name, thedata,
 		)
 	}
 
+	##### FP close window #####################################################
+
+	observeEvent(input[[paste0(name, '_download')]], {
+		callback.close()
+	})		
+		
+	##### FP download Excel functions #####################################################
+
+	observeEvent(input[[paste0(name, '_download')]], {
+		row <- input[[paste0(name, 'dt_rows_selected')]]
+		newdata <- result$thedata
+		callback.download(data=newdata, row = row)
+	})		
+			
 	##### Copy functions #######################################################
 
 	observeEvent(input[[paste0(name, '_copy')]], {
@@ -330,6 +350,7 @@ dtedit <- function(input, output, name, thedata,
 		}
 	})
 
+			
 	##### Update functions #####################################################
 
 	observeEvent(input[[paste0(name, '_edit')]], {
@@ -451,7 +472,7 @@ dtedit <- function(input, output, name, thedata,
 	output[[name]] <- shiny::renderUI({
 		shiny::div(
 			if(show.close) { shiny::actionButton(paste0(name, '_close'), label.close, icon=icon("window-close")) },
-			if(show.downloadExcel) { shiny::actionButton(paste0(name, '_downloadExcel'), label.downloadExcel, icon=icon("file-excel-o")) },
+			if(show.download) { shiny::actionButton(paste0(name, '_download'), label.download, icon=icon("file-excel-o")) },
 			if(show.insert) { shiny::actionButton(paste0(name, '_add'), label.add) },
 			if(show.update) { shiny::actionButton(paste0(name, '_edit'), label.edit) },
 			if(show.delete) { shiny::actionButton(paste0(name, '_remove'), label.delete) },
