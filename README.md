@@ -2,6 +2,8 @@
 
 **Author:** Jason Bryer, Ph.D.
 **Email:** jason@bryer.org
+**Hacked:** Francesco Pirotti, Ph.D.
+**Email:** francesco.pirotti@unipd.it
 
 Use the `devtools` package to install the development version of `DTedit`:
 
@@ -56,7 +58,9 @@ DTedit::dtedit(input, output,
 	   view.cols = c('name', 'email', 'useR'),
 	   callback.update = my.update.callback,
 	   callback.insert = my.insert.callback,
-	   callback.delete = my.delete.callback)
+	   callback.delete = my.delete.callback,
+	   callback.close = my.close.callback,
+	   callback.download = my.download.callback)
 ```
 
 The `input` and `output` are passed from the `server` function. The `name` parameter will define the name of the object available to the `uiOutput`. The `thedata` is a `data.frame` for the initial view of the data table. This can be an empty (i.e. no rows) `data.frame`. The structure of the `data.frame` will define the inputs (e.g. `factor`s will be drop down, `Date` will use `dateInput`, `numeric`s will use `numericInput`, etc.). There are many other parameters to custom the behavior of `dtedit`, see `?dtedit` for the full list.
