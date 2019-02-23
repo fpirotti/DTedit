@@ -2,8 +2,6 @@
 
 **Author:** Jason Bryer, Ph.D.
 **Email:** jason@bryer.org
-**Hacked:** Francesco Pirotti, Ph.D.
-**Email:** francesco.pirotti@unipd.it
 
 Use the `devtools` package to install the development version of `DTedit`:
 
