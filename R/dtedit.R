@@ -341,10 +341,10 @@ dtedit <- function(input, output, name, thedata,
 	
   output[[paste0(name, '_download')]] <- downloadHandler(
     filename = function() {
-      paste("data-", Sys.Date(), ".csv", sep="")
+      paste(name, "-", format(Sys.time(), "%Y%m%d_%H%M%S"), sep="")
     },
     content = function(file) {
-      write.csv(data, file)
+      callback.download(data = result$thedata, file=file)
     }
   )
 			
@@ -482,7 +482,7 @@ dtedit <- function(input, output, name, thedata,
 	output[[name]] <- shiny::renderUI({
 		shiny::div(
 			if(show.close) { shiny::actionButton(paste0(name, '_close'), label.close, icon=icon("window-close")) },
-			if(show.download) { shiny::downloadButton(paste0(name, '_download'), label.download, icon=icon("download")) },
+			if(show.download) { shiny::downloadButton(paste0(name, '_download'), label.download) },
 			if(show.insert) { shiny::actionButton(paste0(name, '_add'), label.add, icon=icon("plus")) },
 			if(show.update) { shiny::actionButton(paste0(name, '_edit'), label.edit, icon=icon("pencil")) },
 			if(show.delete) { shiny::actionButton(paste0(name, '_remove'), label.delete, icon=icon("trash")) },
