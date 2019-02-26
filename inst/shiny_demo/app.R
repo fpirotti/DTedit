@@ -1,6 +1,6 @@
 library(shiny)
 library(RSQLite)
-library(DTedit)
+source("../../R/dtedit.R")
 
 ##### Load books data.frame as a SQLite database
 conn <- dbConnect(RSQLite::SQLite(), "books.sqlite")
@@ -38,6 +38,13 @@ books.insert.callback <- function(data, row) {
 	dbSendQuery(conn, query)
 	return(getBooks())
 }
+books.download.callback<-function(data, file){ 
+  print(file) 
+  print("==========")
+  print(class(data))
+  aaaaaa<<-data
+  write.csv(as.data.frame(data), file)
+}
 
 books.update.callback <- function(data, olddata, row) {
 	query <- paste0("UPDATE books SET ",
@@ -70,7 +77,8 @@ server <- function(input, output) {
 		   view.cols = names(books)[c(5,1,3)],
 		   callback.update = books.update.callback,
 		   callback.insert = books.insert.callback,
-		   callback.delete = books.delete.callback)
+		   callback.delete = books.delete.callback,
+		   callback.download= books.download.callback)
 
 	names <- data.frame(Name=character(), Email=character(), Date=numeric(),
 						Type = factor(levels=c('Admin', 'User')),
