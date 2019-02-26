@@ -338,16 +338,18 @@ dtedit <- function(input, output, name, thedata,
 	#	callback.download(data=newdata)
 	#	paste0(name, '_download')
 	#})		
+# 	
+#   output[[paste0(name, '_download')]] <- downloadHandler(
+#     filename = function() { 
+#       paste(name, "_", format(Sys.time(), "%Y%m%d_%H%M%S"), sep="")
+#     },
+#     content = function(file) {
+#       callback.download(data = result$thedata, file=file)
+#     }
+#   )
 	
-  output[[paste0(name, '_download')]] <- downloadHandler(
-    filename = function() { 
-      paste(name, "_", format(Sys.time(), "%Y%m%d_%H%M%S"), sep="")
-    },
-    content = function(file) {
-      callback.download(data = result$thedata, file=file)
-    }
-  )
-			
+	output[[paste0(name, '_download')]] <-  callback.download(data = result$thedata)
+	  
 			
 	##### Copy functions #######################################################
 
