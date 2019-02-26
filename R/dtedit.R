@@ -1,5 +1,5 @@
 #' Function to create a DataTable with Add, Edit, and Delete buttons.
-#'
+#' Francesco Pirotti changed placeholder
 #' This object will maintain data state. However, in order of the data to persist
 #' between Shiny instances, data needs to be saved to some external format (e.g.
 #' database or R data file). The callback functions provide a mechanism for this
