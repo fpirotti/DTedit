@@ -180,7 +180,7 @@ dtedit <- function(input, output, name, thedata,
 
 	output[[DataTableName]] <- DT::renderDataTable({
 		thedata[,view.cols]
-	}, options = datatable.options, server=TRUE, selection='single',  filter='top', escape=FALSE,  rownames=FALSE)
+	}, options = datatable.options, server=TRUE, selection='single', class = 'compact stripe', filter='top', escape=FALSE,  rownames=FALSE)
 
 	getFields <- function(typeName, values) {
 		fields <- list()
