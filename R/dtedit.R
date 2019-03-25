@@ -78,6 +78,8 @@
 #'        save or update buttons. If the user clicks the save button again within this amount of
 #'        time (in seconds), the subsequent click will be ignored. Set to zero to disable this
 #'        feature. For developers, a message is printed using the warning function.
+#' @param datatable.filter true or false for column-based filters passed to \code{\link{DT::renderDataTable}}.
+#'        See \link{https://rstudio.github.io/DT/index.html} for more information.
 #' @param datatable.options options passed to \code{\link{DT::renderDataTable}}.
 #'        See \link{https://rstudio.github.io/DT/options.html} for more information.
 #' @export
@@ -117,6 +119,7 @@ dtedit <- function(input, output, name, thedata,
 				   callback.download = function(data, row) { },
 				   callback.close = function() { },
 				   click.time.threshold = 2, # in seconds
+				   datatable.filter = F,
 				   datatable.options = list(pageLength=defaultPageLength)
 ) {
 	# Some basic parameter checking
@@ -489,7 +492,7 @@ dtedit <- function(input, output, name, thedata,
 			if(show.update) { shiny::actionButton(paste0(name, '_edit'), label.edit, icon=icon("pencil")) },
 			if(show.delete) { shiny::actionButton(paste0(name, '_remove'), label.delete, icon=icon("trash")) },
 			if(show.copy) { shiny::actionButton(paste0(name, '_copy'), label.copy, icon=icon("files-o")) },
-			shiny::br(), shiny::br(), DT::dataTableOutput(DataTableName)
+			shiny::br(), shiny::br(), DT::dataTableOutput(DataTableName, datatable.filter)
 		)
 	})
 
