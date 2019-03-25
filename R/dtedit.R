@@ -492,7 +492,7 @@ dtedit <- function(input, output, name, thedata,
 			if(show.update) { shiny::actionButton(paste0(name, '_edit'), label.edit, icon=icon("pencil")) },
 			if(show.delete) { shiny::actionButton(paste0(name, '_remove'), label.delete, icon=icon("trash")) },
 			if(show.copy) { shiny::actionButton(paste0(name, '_copy'), label.copy, icon=icon("files-o")) },
-			shiny::br(), shiny::br(), DT::dataTableOutput(DataTableName, filter=datatable.filter)
+			shiny::br(), shiny::br(), DT::dataTableOutput(DataTableName, escape=FALSE, filter=datatable.filter)
 		)
 	})
 
