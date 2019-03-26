@@ -119,7 +119,9 @@ dtedit <- function(input, output, name, thedata,
 				   callback.download = function(data, row) { },
 				   callback.close = function() { },
 				   click.time.threshold = 2, # in seconds
-				   datatable.filter = 'top' ,
+				   datatable.filter = 'none' ,
+				   datatable.class='compact stripe',
+				   datatable.escape=F,
 				   datatable.options = list(pageLength=defaultPageLength)
 ) {
 	# Some basic parameter checking
@@ -180,7 +182,8 @@ dtedit <- function(input, output, name, thedata,
 
 	output[[DataTableName]] <- DT::renderDataTable({
 		thedata[,view.cols]
-	}, options = datatable.options, server=TRUE, selection='single', class = 'compact stripe', filter='top', escape=FALSE,  rownames=FALSE)
+	}, options = datatable.options, server=TRUE, selection='single', class = datatable.class, 
+	filter=datatable.filter, escape=datatable.escape,  rownames=FALSE)
 
 	getFields <- function(typeName, values) {
 		fields <- list()
