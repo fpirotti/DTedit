@@ -186,8 +186,7 @@ dtedit <- function(input, output, name, thedata,
 
 	output[[DataTableName]] <- DT::renderDataTable({
 		thedata[,view.cols]
-	}, options = datatable.options, server=TRUE, selection='single', class = datatable.class, 
-	filter=datatable.filter, escape=datatable.escape,  rownames=FALSE)
+	}, options = datatable.options, server=TRUE, selection='single', class = datatable.class, 	filter=datatable.filter, escape=datatable.escape,  rownames=FALSE)
 
 	getFields <- function(typeName, values) {
 		fields <- list()
