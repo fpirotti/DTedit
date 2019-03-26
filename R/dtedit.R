@@ -78,7 +78,11 @@
 #'        save or update buttons. If the user clicks the save button again within this amount of
 #'        time (in seconds), the subsequent click will be ignored. Set to zero to disable this
 #'        feature. For developers, a message is printed using the warning function.
-#' @param datatable.filter 'top' (default), 'none' or 'bottom' for column-based filters passed to \code{\link{DT::renderDataTable}}.
+#' @param datatable.filter 'none' (default), 'top' or 'bottom' for column-based filters passed to \code{\link{DT::renderDataTable}}.
+#'        See \link{https://rstudio.github.io/DT/index.html} for more information.
+#' @param datatable.class 'strip compact' for class passed to \code{\link{DT::renderDataTable}}.
+#'        See \link{https://rstudio.github.io/DT/index.html} for more information.
+#' @param datatable.escape FALSE (default) for escape parameter passed to \code{\link{DT::renderDataTable}}.
 #'        See \link{https://rstudio.github.io/DT/index.html} for more information.
 #' @param datatable.options options passed to \code{\link{DT::renderDataTable}}.
 #'        See \link{https://rstudio.github.io/DT/options.html} for more information.
@@ -119,7 +123,9 @@ dtedit <- function(input, output, name, thedata,
 				   callback.download = function(data, row) { },
 				   callback.close = function() { },
 				   click.time.threshold = 2, # in seconds
-				   datatable.filter = 'top' ,
+				   datatable.filter = 'none' ,
+				   datatable.class='compact stripe',
+				   datatable.escape=F,
 				   datatable.options = list(pageLength=defaultPageLength)
 ) {
 	# Some basic parameter checking
@@ -180,7 +186,8 @@ dtedit <- function(input, output, name, thedata,
 
 	output[[DataTableName]] <- DT::renderDataTable({
 		thedata[,view.cols]
-	}, options = datatable.options, server=TRUE, selection='single', class = 'compact stripe', filter='top', escape=FALSE,  rownames=FALSE)
+	}, options = datatable.options, server=TRUE, selection='single', class = datatable.class, 
+	filter=datatable.filter, escape=datatable.escape,  rownames=FALSE)
 
 	getFields <- function(typeName, values) {
 		fields <- list()
