@@ -74,6 +74,8 @@
 #'        return an updated data.frame.
 #' @param callback.insert a function called when the user inserts a new row. This function should
 #'        return an updated data.frame.
+#' @param callback.reload a function called when the user wants to reload the data - e.g. from db
+#' @param callback.download download function called when the user inserts wants to download data.
 #' @param click.time.threshold This is to prevent duplicate entries usually by double clicking the
 #'        save or update buttons. If the user clicks the save button again within this amount of
 #'        time (in seconds), the subsequent click will be ignored. Set to zero to disable this
@@ -103,13 +105,14 @@ dtedit <- function(input, output, name, thedata,
 				   select.width = '100%',
 				   defaultPageLength = 10,
 				   title.delete = 'Delete',
-				   title.edit = 'Edit',
+				   title.edit = 'Modifica',
 				   title.add = 'New',
-				   label.delete = 'Delete',
-				   label.edit = 'Edit',
+				   label.delete = 'Elimina',
+				   label.edit = 'Modifica',
 				   label.add = 'New',
 				   label.copy = 'Copy',
 				   label.download = 'Download',
+				   label.reload = 'Reload',
 				   label.close = 'Chiudi',
 				   show.delete = TRUE,
 				   show.update = TRUE,
@@ -117,11 +120,13 @@ dtedit <- function(input, output, name, thedata,
 				   show.copy = TRUE,
 				   show.close = TRUE,
 				   show.download = TRUE,
+				   show.reload = TRUE,
 				   callback.delete = function(data, row) { },
 				   callback.update = function(data, olddata, row) { },
 				   callback.insert = function(data, row) { },
 				   callback.download = function(data, row) { },
 				   callback.close = function() { },
+				   callback.reload = function() { },
 				   click.time.threshold = 2, # in seconds
 				   datatable.filter = 'none' ,
 				   datatable.class='compact stripe',
@@ -338,8 +343,14 @@ dtedit <- function(input, output, name, thedata,
 
 	observeEvent(input[[paste0(name, '_close')]], {
 		callback.close()
-	})		
-		
+	})	
+	
+	##### FP reload button #####################################################
+	
+	observeEvent(input[[paste0(name, '_reload')]], {
+	  callback.reload()
+	})
+	
 	##### FP download Excel functions #####################################################
 
 	#observeEvent(input[[paste0(name, '_download')]], {
@@ -494,6 +505,7 @@ dtedit <- function(input, output, name, thedata,
 		shiny::div(
 			if(show.close) { shiny::actionButton(paste0(name, '_close'), label.close, icon=icon("window-close")) },
 			if(show.download) { shiny::downloadButton(paste0(name, '_download'), label.download) },
+			if(show.reload) { shiny::actionButton(paste0(name, '_reload'), label.reload, icon=icon("refresh")) },
 			if(show.insert) { shiny::actionButton(paste0(name, '_add'), label.add, icon=icon("plus")) },
 			if(show.update) { shiny::actionButton(paste0(name, '_edit'), label.edit, icon=icon("pencil")) },
 			if(show.delete) { shiny::actionButton(paste0(name, '_remove'), label.delete, icon=icon("trash")) },
