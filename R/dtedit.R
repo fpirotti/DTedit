@@ -348,7 +348,22 @@ dtedit <- function(input, output, name, thedata,
 	##### FP reload button #####################################################
 	
 	observeEvent(input[[paste0(name, '_reload')]], {
-	  callback.reload()
+	  
+	  tryCatch({
+	    callback.data <- callback.reload()
+	    if(!is.null(callback.data) & is.data.frame(callback.data)) {
+	      result$thedata <- callback.data
+	    } 
+	    updateData(dt.proxy,
+	               result$thedata[,view.cols],
+	               rownames = FALSE)
+	    return(TRUE)
+	  }, error = function(e) {
+	    output[[paste0(name, '_message')]] <<- shiny::renderText(geterrmessage())
+	    return(FALSE)
+	  })
+	  
+	  
 	})
 	
 	##### FP download Excel functions #####################################################
