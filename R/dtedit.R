@@ -362,11 +362,11 @@ dtedit <- function(input, output, name, thedata,
 	    output[[paste0(name, '_message')]] <<- shiny::renderText(geterrmessage())
 	    return(FALSE)
 	  })
-	  
+	   
 	  
 	})
 	
-	##### FP download Excel functions #####################################################
+	##### FP ggggdownload Excel functions #####################################################
 
 	#observeEvent(input[[paste0(name, '_download')]], {
 	#	newdata <- result$thedata
