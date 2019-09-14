@@ -1,6 +1,6 @@
 ## Editable DataTables for shiny apps.
 
-**Author:** Jason Bryer, Ph.D.
+**Author:** Jason Bryer, Ph.D. - tweaked by Francesco Pirotti
 **Email:** jason@bryer.org
 
 Use the `devtools` package to install the development version of `DTedit`:

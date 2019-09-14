@@ -114,6 +114,7 @@ dtedit <- function(input, output, name, thedata,
 				   label.download = 'Download',
 				   label.reload = 'Reload',
 				   label.close = 'Chiudi',
+				   label.upload = 'Carica',
 				   show.delete = TRUE,
 				   show.update = TRUE,
 				   show.insert = TRUE,
@@ -121,12 +122,14 @@ dtedit <- function(input, output, name, thedata,
 				   show.close = TRUE,
 				   show.download = TRUE,
 				   show.reload = TRUE,
+				   show.upload = F,
 				   callback.delete = function(data, row) { },
 				   callback.update = function(data, olddata, row) { },
 				   callback.insert = function(data, row) { },
 				   callback.download = function(data, row) { },
 				   callback.close = function() { },
 				   callback.reload = function() { },
+				   callback.upload = function() { },
 				   click.time.threshold = 2, # in seconds
 				   datatable.filter = 'none' ,
 				   datatable.class='compact stripe',
@@ -366,7 +369,30 @@ dtedit <- function(input, output, name, thedata,
 	  
 	})
 	
-	##### FP ggggdownload Excel functions #####################################################
+	
+	##### FP upload button #####################################################
+	
+	observeEvent(input[[paste0(name, '_upload')]], {
+	  
+	  tryCatch({
+	    callback.data <- callback.reload()
+	    if(!is.null(callback.data) & is.data.frame(callback.data)) {
+	      result$thedata <- callback.data
+	    } 
+	    updateData(dt.proxy,
+	               result$thedata[,view.cols],
+	               rownames = FALSE)
+	    return(TRUE)
+	  }, error = function(e) {
+	    output[[paste0(name, '_message')]] <<- shiny::renderText(geterrmessage())
+	    return(FALSE)
+	  })
+	  
+	  
+	})
+
+	
+	##### FP download Excel functions #####################################################
 
 	#observeEvent(input[[paste0(name, '_download')]], {
 	#	newdata <- result$thedata
