@@ -375,13 +375,11 @@ dtedit <- function(input, output, name, thedata,
 	observeEvent(input[[paste0(name, '_upload')]], {
 	  
 	  tryCatch({
-	    callback.data <- callback.reload()
-	    if(!is.null(callback.data) & is.data.frame(callback.data)) {
-	      result$thedata <- callback.data
-	    } 
-	    updateData(dt.proxy,
-	               result$thedata[,view.cols],
-	               rownames = FALSE)
+	    callback.data <- callback.upload(name)
+	    # if(!is.null(callback.data) & is.data.frame(callback.data)) {
+	    #   result$thedata <- callback.data
+	    # } 
+
 	    return(TRUE)
 	  }, error = function(e) {
 	    output[[paste0(name, '_message')]] <<- shiny::renderText(geterrmessage())
@@ -550,6 +548,7 @@ dtedit <- function(input, output, name, thedata,
 			if(show.insert) { shiny::actionButton(paste0(name, '_add'), label.add, icon=icon("plus")) },
 			if(show.update) { shiny::actionButton(paste0(name, '_edit'), label.edit, icon=icon("pencil")) },
 			if(show.delete) { shiny::actionButton(paste0(name, '_remove'), label.delete, icon=icon("trash")) },
+			if(show.upload) { shiny::actionButton(paste0(name, '_upload'), label.delete, icon=icon("upload")) },
 			if(show.copy) { shiny::actionButton(paste0(name, '_copy'), label.copy, icon=icon("files-o")) },
 			shiny::br(), shiny::br(), DT::dataTableOutput(DataTableName)
 		)
