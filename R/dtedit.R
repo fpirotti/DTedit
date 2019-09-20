@@ -424,7 +424,7 @@ dtedit <- function(input, output, name, thedata,
 	##### Upload functions #####################################################
 	
 	observeEvent(input[[paste0(name, '_upload')]], {
-	  value = file.choose()
+
 	  print(value)
 	})
 	
@@ -549,12 +549,12 @@ dtedit <- function(input, output, name, thedata,
 	output[[name]] <- shiny::renderUI({
 		shiny::div(
 			if(show.close) { shiny::actionButton(paste0(name, '_close'), label.close, icon=icon("window-close")) },
-			if(show.download) { shiny::downloadButton(paste0(name, '_download'), label.download) },
+			if(show.download) { shiny::downloadButton(paste0(name, '_download'), label.download, style="background-color: #9999ff; ") },
 			if(show.reload) { shiny::actionButton(paste0(name, '_reload'), label.reload, icon=icon("refresh")) },
-			if(show.insert) { shiny::actionButton(paste0(name, '_add'), label.add, icon=icon("plus")) },
+			if(show.insert) { shiny::actionButton(paste0(name, '_add'), label.add, icon=icon("plus"), style="background-color: #99ff99; " ) },
 			if(show.update) { shiny::actionButton(paste0(name, '_edit'), label.edit, icon=icon("pencil")) },
-			if(show.delete) { shiny::actionButton(paste0(name, '_remove'), label.delete, icon=icon("trash")) },
-			if(show.upload) { shiny::actionButton(paste0(name, '_upload'), label.delete, icon=icon("upload")) },
+			if(show.delete) { shiny::actionButton(paste0(name, '_remove'), label.delete, icon=icon("trash"), style="background-color: #ff9999; " ) },
+			if(show.upload) { shiny::fileInput(paste0(name, '_upload'), label.upload, icon=icon("upload"), width=10, placeholder = "") },
 			if(show.copy) { shiny::actionButton(paste0(name, '_copy'), label.copy, icon=icon("files-o")) },
 			shiny::br(), shiny::br(), DT::dataTableOutput(DataTableName)
 		)
