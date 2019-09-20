@@ -421,7 +421,13 @@ dtedit <- function(input, output, name, thedata,
 		}
 	})
 
-			
+	##### Upload functions #####################################################
+	
+	observeEvent(input[[paste0(name, '_upload')]], {
+	  value = file.choose()
+	  print(value)
+	})
+	
 	##### Update functions #####################################################
 
 	observeEvent(input[[paste0(name, '_edit')]], {
