@@ -421,13 +421,7 @@ dtedit <- function(input, output, name, thedata,
 		}
 	})
 
-	##### Upload functions #####################################################
-	
-	observeEvent(input[[paste0(name, '_upload')]], {
 
-	  print(value)
-	})
-	
 	##### Update functions #####################################################
 
 	observeEvent(input[[paste0(name, '_edit')]], {
@@ -554,7 +548,7 @@ dtedit <- function(input, output, name, thedata,
 			if(show.insert) { shiny::actionButton(paste0(name, '_add'), label.add, icon=icon("plus"), style="background-color: #99ff99; " ) },
 			if(show.update) { shiny::actionButton(paste0(name, '_edit'), label.edit, icon=icon("pencil")) },
 			if(show.delete) { shiny::actionButton(paste0(name, '_remove'), label.delete, icon=icon("trash"), style="background-color: #ff9999; " ) },
-			if(show.upload) { div(style = "display:inline-block; margin-bottom: -40px; margin-left:10px;", id=paste0(name, '_upload_container_div__'), 
+			if(show.upload) { div(style = "vertical-align: middle; display:inline-block; margin-bottom: -40px; margin-left:10px;", id=paste0(name, '_upload_container_div__'), 
 			                      shiny::fileInput(paste0(name, '_upload'), label=NULL, buttonLabel=label.upload, width=0, placeholder = "") ) },
 			if(show.copy) { shiny::actionButton(paste0(name, '_copy'), label.copy, icon=icon("files-o")) },
 			shiny::br(), shiny::br(), DT::dataTableOutput(DataTableName)
